@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss>
+   <enterprise-beans>
+      <session>
+         <ejb-name>EJB3Bean</ejb-name>
+         <jndi-name>ejb/EJB3AsEJB2/remote</jndi-name>
+         <home-jndi-name>ejb/EJB3AsEJB2/home</home-jndi-name>
+      </session>
+   </enterprise-beans>
+</jboss>

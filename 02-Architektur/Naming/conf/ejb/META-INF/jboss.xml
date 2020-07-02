@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss>
+   <enterprise-beans>
+      <session>
+         <ejb-name>DescriptorNamingBean</ejb-name>
+         <jndi-name>ejb/DescriptorNaming</jndi-name>
+      </session>
+   </enterprise-beans>
+</jboss>

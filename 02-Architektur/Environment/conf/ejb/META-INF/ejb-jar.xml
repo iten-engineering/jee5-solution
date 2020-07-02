@@ -1,0 +1,30 @@
+<ejb-jar
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	                    http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	version="3.0">
+	<enterprise-beans>
+		<session>
+			<ejb-name>EnvBean</ejb-name>
+			<env-entry>
+				<env-entry-name>MessageA</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>Viele Wege</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>MessageB</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>fuehren nach Rom.</env-entry-value>
+				<injection-target>
+					<injection-target-class>
+						ch.itenengineering.env.ejb.EnvBean
+					</injection-target-class>
+					<injection-target-name>
+						messageB
+					</injection-target-name>
+				</injection-target>
+			</env-entry>
+		</session>
+	</enterprise-beans>
+</ejb-jar>

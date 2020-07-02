@@ -1,0 +1,148 @@
+<project name="Basic Build Script" default="about" basedir=".">
+	
+	<description>
+		Enterprise Java Beans Samples
+		Copyright (c) 2007, iten-engineering.ch
+		
+		basis build script defining some core properties and targets
+		used throughout all samples. 
+		
+		note: 
+		there is no compile target since the scripts will run inside 
+		eclipse and there's (yet) no need to run them stand-alone.
+	</description>
+
+	<!-- 
+	// =====================================================================
+	// core properties
+	// =====================================================================
+	-->
+
+	<!--
+	 * default application name
+	 * note: must be overridden by the single projects by defining
+	 * the same property before this script (basic.xml) is included
+	-->
+	<property name="application.name"	value="default" />
+	
+
+	<!--
+	 * define filenames used for naming the project deliverables
+	 * (jar, war and ear files).
+	-->
+	<property name="filename" 			value="${application.name}" />
+	<property name="filename.ejb"		value="${filename}-ejb.jar" />
+	<property name="filename.war" 		value="${filename}.war" />
+	<property name="filename.ear" 		value="${filename}.ear" />
+	
+
+	<!--
+	 * define library and project directory locations 
+	 * used troughot the build process
+	--> 
+	<property name="library" 			location="../repo" />
+
+	<property name="project.conf"		location="conf" />
+	<property name="project.classes"	location="build/classes" />
+	<property name="project.dist"		location="dist" />
+	<property name="project.tmp"		location="build/tmp" />
+	<property name="project.doc"		location="doc" />
+		
+
+	<!-- 
+	 * define server locations for profile default
+	-->
+	<property name="server.root"		location="../../software/jboss-5/server/default" />
+	<property name="server.deploy"		location="${server.root}/deploy" />
+	<property name="server.conf"		location="${server.root}/conf" />
+	<property name="server.lib"			location="${server.root}/lib" />
+	
+	<!-- 
+	// =====================================================================
+	// core targets
+	// =====================================================================
+	-->
+
+	<target name="about">
+		<echo>
+			Enterprise Java Beans Samples
+			Copyright (c) 2007, iten-engineering.ch
+			
+			basis build script defining some core properties and targets
+			used throughout all samples
+		</echo>
+	</target>
+
+	<!-- 
+	 * build targets
+	-->
+	<target name="build" depends="build_ear" />
+
+	<target name="build_ear" depends="build_ejb, build_war">
+		<mkdir dir="${project.tmp}" />
+		<copy todir="${project.tmp}">
+			<fileset dir="${project.dist}" includes="${filename.ejb}" />
+		</copy>
+		<copy todir="${project.tmp}">
+			<fileset dir="${project.dist}" includes="${filename.war}" />
+		</copy>
+		<copy todir="${project.tmp}">
+			<fileset dir="${project.conf}/ear" /> 
+		</copy>
+		<jar destfile="${project.dist}/${filename.ear}"  basedir="${project.tmp}"	/>
+		<delete dir="${project.tmp}" />
+	</target>
+
+	<target name="build_ejb">
+		<mkdir dir="${project.tmp}" />
+		<copy todir="${project.tmp}">
+			<fileset dir="${project.classes}" includes="**/*.class" excludes="**/client/*.class"/>
+		</copy>
+		<copy todir="${project.tmp}" failonerror="false" >
+			<fileset dir="${project.conf}/ejb" /> 
+		</copy>
+		<jar destfile="${project.dist}/${filename.ejb}"  basedir="${project.tmp}"	/>
+		<delete dir="${project.tmp}" />
+	</target>
+
+	<target name="build_war" if="include.war">
+		<mkdir dir="${project.tmp}" />
+		<copy todir="${project.tmp}/WEB-INF/classes">
+			<fileset dir="${project.classes}" includes="**/*.class" excludes="**/ejb/*.class"/>
+		</copy>
+		<copy todir="${project.tmp}" failonerror="false" >
+			<fileset dir="${project.conf}/web" /> 
+		</copy>
+		<jar destfile="${project.dist}/${filename.war}"  basedir="${project.tmp}"	/>
+		<delete dir="${project.tmp}" />
+	</target>
+	
+	
+	<!-- 
+	 * deploy / undeploy targets for profile "server.deploy"
+	-->
+	<target name="deploy" depends="deploy_ear" />
+	<target name="undeploy" depends="undeploy_ear" />
+
+	<target name="deploy_ear">
+		<copy file="${project.dist}/${filename.ear}" todir="${server.deploy}" />
+	</target>
+	<target name="undeploy_ear">
+		<delete file="${server.deploy}/${filename.ear}" />
+	</target>
+
+	<target name="deploy_ejb">
+		<copy file="${project.dist}/${filename.ejb}" todir="${server.deploy}" />
+	</target>
+	<target name="undeploy_ejb">
+		<delete file="${server.deploy}/${filename.ejb}" />
+	</target>
+
+	<target name="deploy_war">
+		<copy file="${project.dist}/${filename.war}" todir="${server.deploy}" />
+	</target>
+	<target name="undeploy_war">
+		<delete file="${server.deploy}/${filename.war}" />
+	</target>
+
+</project>

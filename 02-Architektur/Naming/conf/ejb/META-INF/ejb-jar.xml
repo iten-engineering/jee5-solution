@@ -1,0 +1,15 @@
+<ejb-jar
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	                    http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	version="3.0">
+	<enterprise-beans>
+		<session>
+			<ejb-name>DescriptorNamingBean</ejb-name>
+			<business-remote>ch.itenengineering.naming.ejb.DescriptorNamingRemote</business-remote>
+			<ejb-class>ch.itenengineering.naming.ejb.DescriptorNamingBean</ejb-class>
+			<session-type>Stateless</session-type>
+		</session>
+	</enterprise-beans>
+</ejb-jar>

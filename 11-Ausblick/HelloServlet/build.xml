@@ -1,0 +1,37 @@
+<project name="Hello Servlet" default="buildAndDeploy" basedir=".">
+	
+	<description>
+		Enterprise Java Beans Samples  
+		Copyright (c) 2007, iten-engineering.ch
+	</description>
+
+	<!-- 
+	// =====================================================================
+	// configuration
+	// =====================================================================
+	-->
+
+	<!--
+	 * define application name (all lowercase)
+	-->
+	<property name="application.name"	value="helloservlet" />
+		
+	<!--
+	 * enable build_war target from basis.xml
+	-->
+	<property name="include.war"		value="true" />
+
+	<!--
+	 * define core properties and targets
+	-->
+    <import file="../Config/basic.xml" />
+
+	<!-- 
+	// =====================================================================
+	// targets
+	// =====================================================================
+	-->
+
+	<target name="buildAndDeploy" depends="build, deploy" />
+
+</project>

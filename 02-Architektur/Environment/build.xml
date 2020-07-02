@@ -1,0 +1,32 @@
+<project name="Environment" default="buildAndDeploy" basedir=".">
+	
+	<description>
+		Enterprise Java Beans Samples  
+		Copyright (c) 2007, iten-engineering.ch
+	</description>
+
+	<!-- 
+	// =====================================================================
+	// configuration
+	// =====================================================================
+	-->
+
+	<!--
+	 * define application name (all lowercase)
+	-->
+	<property name="application.name"	value="environment" />
+	
+	<!--
+	 * define core properties and targets
+	-->
+    <import file="../Config/basic.xml" />
+
+	<!-- 
+	// =====================================================================
+	// targets
+	// =====================================================================
+	-->
+
+	<target name="buildAndDeploy" depends="build, deploy" />
+
+</project>
